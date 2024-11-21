@@ -1,19 +1,14 @@
 {
-  "name": "wattpad-site",
+  "name": "wattpad-scraper-app",
   "version": "1.0.0",
-  "description": "A website to search and view Wattpad stories using the wattpad-scraper package.",
+  "description": "A simple web app for scraping Wattpad stories using wattpad-scraper.",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "start": "node src/server.js"
   },
-  "author": "chill",
-  "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "wattpad-scraper": "^1.0.8"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
   }
 }
