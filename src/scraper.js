@@ -1,31 +1,13 @@
-const express = require('express');
-const { searchStories, readStory } = require('./scraper');
+const WattpadScraper = require('wattpad-scraper');
+const scraper = new WattpadScraper();
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+async function searchStories(query) {
+    return await scraper.search(query);
+}
 
-app.use(express.static("public"));
+async function readStory(link) {
+    const pages = await scraper.read(link);
+    return { title: "Story Title", pages }; // Mocked for simplicity
+}
 
-app.get('/search', async (req, res) => {
-    try {
-        const query = req.query.query;
-        const stories = await searchStories(query);
-        res.json(stories);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Server Error");
-    }
-});
-
-app.get('/story', async (req, res) => {
-    try {
-        const link = req.query.link;
-        const content = await readStory(link);
-        res.json(content);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Server Error");
-    }
-});
-
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+module.exports = { searchStories, readStory };
