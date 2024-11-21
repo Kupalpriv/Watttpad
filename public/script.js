@@ -1,37 +1,45 @@
-document.getElementById("search-btn").addEventListener("click", async () => {
-    const query = document.getElementById("search-input").value;
-    if (!query) return alert("Please enter a search query!");
+const API_BASE = "http://localhost:3000"; // Replace with backend URL when deployed
 
-    try {
-        const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
-        const stories = await response.json();
-        const resultsContainer = document.getElementById("results");
+async function searchStories(query) {
+  try {
+    const response = await fetch(`${API_BASE}/search?query=${query}`);
+    if (!response.ok) throw new Error('Failed to fetch search results');
 
-        resultsContainer.innerHTML = stories.map(story => `
-            <div class="story-card">
-                <h3>${story.title}</h3>
-                <p>Author: ${story.author}</p>
-                <p>Reads: ${story.reads} | Votes: ${story.votes}</p>
-                <button onclick="viewStory('${story.link}')">View Story</button>
-            </div>
-        `).join("");
-    } catch (error) {
-        console.error(error);
-        alert("Failed to fetch stories.");
-    }
-});
-
-async function viewStory(link) {
-    try {
-        const response = await fetch(`/story?link=${encodeURIComponent(link)}`);
-        const content = await response.json();
-
-        document.getElementById("story-content").innerHTML = `
-            <h2>${content.title}</h2>
-            ${content.pages.map(page => `<p>${page.content}</p>`).join("")}
-        `;
-    } catch (error) {
-        console.error(error);
-        alert("Failed to fetch story content.");
-    }
+    const stories = await response.json();
+    renderStories(stories);
+  } catch (error) {
+    console.error('Error fetching stories:', error);
+    alert('An error occurred while searching. Please try again.');
+  }
 }
+
+function renderStories(stories) {
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = '';
+
+  if (stories.length === 0) {
+    resultsContainer.innerHTML = '<p>No stories found.</p>';
+    return;
+  }
+
+  stories.forEach((story) => {
+    const storyDiv = document.createElement('div');
+    storyDiv.innerHTML = `
+      <h3>${story.title}</h3>
+      <p><strong>Author:</strong> ${story.author}</p>
+      <p><strong>Reads:</strong> ${story.reads}</p>
+      <p><strong>Votes:</strong> ${story.votes}</p>
+      <a href="${story.link}" target="_blank">Read More</a>
+    `;
+    resultsContainer.appendChild(storyDiv);
+  });
+}
+
+document.getElementById('searchButton').addEventListener('click', () => {
+  const query = document.getElementById('searchInput').value;
+  if (query.trim() === '') {
+    alert('Please enter a search term.');
+    return;
+  }
+  searchStories(query);
+});
