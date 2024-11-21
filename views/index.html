@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wattpad Scraper</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="ui-card">
+        <h1>Wattpad Scraper</h1>
+        <form action="/search" method="GET">
+            <input type="text" name="query" placeholder="Search stories..." required>
+            <button class="ui-button" type="submit">Search</button>
+        </form>
+        <form action="/read" method="POST">
+            <input type="text" name="chapterUrl" placeholder="Chapter URL" required>
+            <button class="ui-button" type="submit">Read Chapter</button>
+        </form>
+        <form action="/parts" method="POST">
+            <input type="text" name="storyUrl" placeholder="Story URL" required>
+            <button class="ui-button" type="submit">Get Story Parts</button>
+        </form>
+    </div>
+    <div class="footer">
+        <p>All Rights Reserved <span class="highlight">Churchill</span></p>
+    </div>
+</body>
+</html>
