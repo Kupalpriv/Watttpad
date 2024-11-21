@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wattpad Story Viewer</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wattpad Search</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Wattpad Story</h1>
-        <p>Search and read stories directly from Wattpad</p>
-    </header>
-    <main>
-        <section id="search">
-            <input type="text" id="search-input" placeholder="Search for stories...">
-            <button id="search-btn">Search</button>
-        </section>
-        <section id="results"></section>
-        <section id="story-content"></section>
-    </main>
-    <script src="scripts.js"></script>
+  <header>
+    <h1>Wattpad Search</h1>
+    <p>Search and explore Wattpad stories.</p>
+  </header>
+  <main>
+    <div class="search-bar">
+      <input id="searchInput" type="text" placeholder="Enter story name" />
+      <button id="searchButton">Search</button>
+    </div>
+    <div id="results" class="results"></div>
+  </main>
+  <script src="scripts.js"></script>
 </body>
 </html>
